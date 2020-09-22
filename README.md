@@ -1,18 +1,6 @@
 # OpenAPI CLI Generator
 
-[![GoDoc](https://godoc.org/github.com/danielgtaylor/openapi-cli-generator?status.svg)](https://godoc.org/github.com/danielgtaylor/openapi-cli-generator)
-[![Build Status](https://travis-ci.org/danielgtaylor/openapi-cli-generator.svg?branch=master)](https://travis-ci.org/danielgtaylor/openapi-cli-generator)
-[![Go Report Card](https://goreportcard.com/badge/github.com/danielgtaylor/openapi-cli-generator)](https://goreportcard.com/report/github.com/danielgtaylor/openapi-cli-generator)
-[![Platforms](https://img.shields.io/badge/platform-win%20%7C%20mac%20%7C%20linux-ligh.svg)](https://github.com/danielgtaylor/openapi-cli-generator/releases)
-
-<img alt="openapi-to-cli" src="https://user-images.githubusercontent.com/106826/46594546-a8bb2480-ca88-11e8-90ec-fb87e51009a8.png">
-
----
-
-**Note: this project has been superceded by Restish, an advanced auto-configured OpenAPI CLI that just works:**
-
-- https://rest.sh/
-- https://github.com/danielgtaylor/restish
+**Note: this project has been forked from https://github.com/danielgtaylor/openapi-cli-generator**
 
 ---
 
@@ -37,7 +25,7 @@ This project can be used to generate CLIs from OpenAPI 3 specs. The generated CL
 First, make sure you have Go installed. Then, you can grab this project:
 
 ```sh
-$ go get -u github.com/danielgtaylor/openapi-cli-generator
+$ go get -u github.com/exoscale/openapi-cli-generator
 ```
 
 Next, make your project directory and generate the commands file.

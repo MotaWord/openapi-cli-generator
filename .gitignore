@@ -1,4 +1,2 @@
-vendor
-.vscode
-test
-example-cli/main.go-e
+test/
+openapi-cli-generator
