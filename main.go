@@ -13,10 +13,11 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/exoscale/openapi-cli-generator/shorthand"
 	"github.com/getkin/kin-openapi/openapi3"
 	"github.com/spf13/cobra"
 	yaml "gopkg.in/yaml.v2"
+
+	"github.com/exoscale/openapi-cli-generator/shorthand"
 )
 
 //go:generate go-bindata ./templates/...
@@ -641,7 +642,7 @@ func generate(cmd *cobra.Command, args []string) {
 		panic(err)
 	}
 
-	shortName := strings.TrimSuffix(path.Base(args[0]), ".yaml")
+	shortName := strings.TrimSuffix(path.Base(args[0]), path.Ext(args[0]))
 
 	templateData := ProcessAPI(shortName, swagger)
 
