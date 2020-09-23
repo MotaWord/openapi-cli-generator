@@ -129,6 +129,7 @@ type Imports struct {
 
 // OpenAPI describes an API
 type OpenAPI struct {
+	GoPackage    string
 	Imports      Imports
 	Name         string
 	GoName       string
@@ -155,6 +156,7 @@ func ProcessAPI(shortName string, api *openapi3.Swagger) *OpenAPI {
 	}
 
 	result := &OpenAPI{
+		GoPackage:    "main",
 		Name:         apiName,
 		GoName:       toGoName(shortName, false),
 		PublicGoName: toGoName(shortName, true),
@@ -723,9 +725,16 @@ func generate(cmd *cobra.Command, args []string) {
 		panic(err)
 	}
 
-	shortName := strings.TrimSuffix(path.Base(args[0]), path.Ext(args[0]))
+	name := strings.TrimSuffix(path.Base(args[0]), path.Ext(args[0]))
+	if v, _ := cmd.Flags().GetString("name"); v != "" {
+		name = v
+	}
 
-	templateData := ProcessAPI(shortName, swagger)
+	templateData := ProcessAPI(name, swagger)
+
+	if v, _ := cmd.Flags().GetString("go-package"); v != "" {
+		templateData.GoPackage = v
+	}
 
 	var sb strings.Builder
 	err = tmpl.Execute(&sb, templateData)
@@ -733,9 +742,9 @@ func generate(cmd *cobra.Command, args []string) {
 		panic(err)
 	}
 
-	output := shortName+".go"
-	if o, _ := cmd.Flags().GetString("output"); o != "" {
-		output = o
+	output := name + ".go"
+	if v, _ := cmd.Flags().GetString("output"); v != "" {
+		output = v
 	}
 
 	writeFormattedFile(output, []byte(sb.String()))
@@ -757,8 +766,12 @@ func main() {
 		Args:  cobra.ExactArgs(1),
 		Run:   generate,
 	}
+	generateCmd.Flags().StringP("name", "n", "",
+		"specify a name to prefix symbols with in generated code (default <input file base name>)")
+	generateCmd.Flags().StringP("go-package", "p", "main",
+		"specify a Go package name for the generated code file")
 	generateCmd.Flags().StringP("output", "o", "",
-		"specify an alternative output file for generated code")
+		"specify an alternative output file for generated code (default <input file base name>.go)")
 	root.AddCommand(generateCmd)
 
 	root.Execute()
