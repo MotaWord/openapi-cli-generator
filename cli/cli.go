@@ -51,12 +51,17 @@ type Config struct {
 	AppName   string
 	EnvPrefix string
 	Version   string
+	Caching   bool
 }
 
 // Init will set up the CLI.
 func Init(config *Config) {
 	initConfig(config.AppName, config.EnvPrefix)
-	initCache(config.AppName)
+
+	if config.Caching {
+		initCache(config.AppName)
+	}
+
 	authInitialized = false
 
 	// Determine if we are using a TTY or colored output is forced-on.
