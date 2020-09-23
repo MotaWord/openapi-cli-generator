@@ -226,26 +226,30 @@ func ProcessAPI(shortName string, api *openapi3.Swagger) *OpenAPI {
 	// Convenience map for operation ID -> operation
 	operationMap := make(map[string]*Operation)
 
-	var keys []string
+	var paths []string
 	for path := range api.Paths {
-		keys = append(keys, path)
+		paths = append(paths, path)
 	}
-	sort.Strings(keys)
+	sort.Strings(paths)
 
-	for _, path := range keys {
-		item := api.Paths[path]
+	for _, path := range paths {
+		pathItem := api.Paths[path]
 
-		if item.Extensions[ExtIgnore] != nil {
+		if pathItem.Extensions[ExtIgnore] != nil {
 			// Ignore this path.
 			continue
 		}
 
 		pathHidden := false
-		if item.Extensions[ExtHidden] != nil {
-			json.Unmarshal(item.Extensions[ExtHidden].(json.RawMessage), &pathHidden)
+		if pathItem.Extensions[ExtHidden] != nil {
+			json.Unmarshal(pathItem.Extensions[ExtHidden].(json.RawMessage), &pathHidden)
 		}
 
-		for method, operation := range item.Operations() {
+		// Group operations per path for later path-level sorting, produces a more stable result
+		// over multiple generations.
+		pathOperations := make([]*Operation, 0)
+
+		for method, operation := range pathItem.Operations() {
 			if operation.Extensions[ExtIgnore] != nil {
 				// Ignore this operation.
 				continue
@@ -262,7 +266,7 @@ func ProcessAPI(shortName string, api *openapi3.Swagger) *OpenAPI {
 				json.Unmarshal(operation.Extensions[ExtAliases].(json.RawMessage), &aliases)
 			}
 
-			params := getParams(item, method)
+			params := getParams(pathItem, method)
 			requiredParams := getRequiredParams(params)
 			optionalParams := getOptionalParams(params)
 			short := operation.Summary
@@ -385,7 +389,7 @@ func ProcessAPI(shortName string, api *openapi3.Swagger) *OpenAPI {
 
 			operationMap[operation.OperationID] = o
 
-			result.Operations = append(result.Operations, o)
+			pathOperations = append(pathOperations, o)
 
 			for _, p := range params {
 				if p.In == "path" {
@@ -399,6 +403,11 @@ func ProcessAPI(shortName string, api *openapi3.Swagger) *OpenAPI {
 				}
 			}
 		}
+
+		sort.Slice(pathOperations, func(i, j int) bool {
+			return pathOperations[i].HandlerName < pathOperations[j].HandlerName
+		})
+		result.Operations = append(result.Operations, pathOperations...)
 	}
 
 	if api.Extensions[ExtWaiters] != nil {
