@@ -152,12 +152,7 @@ func userHomeDir() string {
 }
 
 func initConfig(appName, envPrefix string) {
-	// One-time setup to ensure the path exists so we can write files into it
-	// later as needed.
 	configDir := path.Join(userHomeDir(), "."+appName)
-	if err := os.MkdirAll(configDir, 0700); err != nil {
-		panic(err)
-	}
 
 	// Load configuration from file(s) if provided.
 	viper.SetConfigName("config")
