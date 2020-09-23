@@ -11,7 +11,7 @@ require (
 	github.com/danielgtaylor/go-jmespath-plus v0.0.0-20200228063638-e0b6f132acba
 	github.com/danwakefield/fnmatch v0.0.0-20160403171240-cbb64ac3d964 // indirect
 	github.com/dlclark/regexp2 v1.1.6 // indirect
-	github.com/getkin/kin-openapi v0.0.0-20190303141616-e6aa6352832d
+	github.com/getkin/kin-openapi v0.22.0
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
 	github.com/mattn/go-colorable v0.0.9
 	github.com/mattn/go-isatty v0.0.4
@@ -26,9 +26,9 @@ require (
 	github.com/spf13/cobra v0.0.3
 	github.com/spf13/pflag v1.0.3
 	github.com/spf13/viper v1.2.1
-	github.com/stretchr/testify v1.4.0
+	github.com/stretchr/testify v1.5.1
 	golang.org/x/oauth2 v0.0.0-20181003184128-c57b0facaced
 	google.golang.org/appengine v1.2.0 // indirect
 	gopkg.in/h2non/gentleman.v2 v2.0.3
-	gopkg.in/yaml.v2 v2.2.4
+	gopkg.in/yaml.v2 v2.3.0
 )
