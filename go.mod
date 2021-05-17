@@ -1,4 +1,4 @@
-module github.com/MotaWord/openapi-cli-generator
+module github.com/motaword/openapi-cli-generator
 
 go 1.12
 
