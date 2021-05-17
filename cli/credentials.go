@@ -226,6 +226,7 @@ func InitCredentialsFile() {
 
 	Creds.SetConfigName("credentials")
 	Creds.AddConfigPath("$HOME/." + viper.GetString("app-name") + "/")
+	Creds.AddConfigPath(".")
 	Creds.ReadInConfig()
 
 	// Register a new `--profile` flag.

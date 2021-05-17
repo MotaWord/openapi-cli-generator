@@ -9,7 +9,7 @@ This project can be used to generate CLIs from OpenAPI 3 specs. The generated CL
 - Authentication support for API keys and [Auth0](https://auth0.com/).
 - Commands, subcommands, & flag parsing through [Cobra](https://github.com/spf13/cobra)
 - Configuration through [Viper](https://github.com/spf13/viper)
-  - JSON, YAML, or TOML config files in `/etc/` and `$HOME`, e.g. `{"verbose": true}` in `~/.my-app/config.json`
+  - JSON, YAML, or TOML config files in `.`, `/etc/` and `$HOME`, e.g. `{"verbose": true}` in `~/.my-app/config.json`
   - From environment: `APP_NAME_VERBOSE=1`
   - From flags: `--verbose`
 - HTTP middleware through [Gentleman](https://github.com/h2non/gentleman/)

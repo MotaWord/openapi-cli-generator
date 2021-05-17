@@ -155,9 +155,10 @@ func initConfig(appName, envPrefix string) {
 	configDir := path.Join(userHomeDir(), "."+appName)
 
 	// Load configuration from file(s) if provided.
-	viper.SetConfigName("config")
+	viper.SetConfigName(appName)
 	viper.AddConfigPath("/etc/" + appName + "/")
 	viper.AddConfigPath("$HOME/." + appName + "/")
+	viper.AddConfigPath(".")
 	viper.ReadInConfig()
 
 	// Load configuration from the environment if provided. Flags below get
@@ -174,8 +175,10 @@ func initConfig(appName, envPrefix string) {
 
 func initCache(appName string) {
 	Cache = viper.New()
-	Cache.SetConfigName("cache")
+	Cache.SetConfigName(appName + "-cache")
+	viper.AddConfigPath("/etc/" + appName + "/")
 	Cache.AddConfigPath("$HOME/." + appName + "/")
+	viper.AddConfigPath(".")
 
 	// Write a blank cache if no file is already there. Later you can use
 	// cli.Cache.SaveConfig() to write new values.
