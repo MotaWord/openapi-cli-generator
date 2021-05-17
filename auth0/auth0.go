@@ -1,8 +1,8 @@
 package auth0
 
 import (
-	"github.com/exoscale/openapi-cli-generator/cli"
-	"github.com/exoscale/openapi-cli-generator/oauth"
+	"github.com/motaword/openapi-cli-generator/cli"
+	"github.com/motaword/openapi-cli-generator/oauth"
 )
 
 type config struct {

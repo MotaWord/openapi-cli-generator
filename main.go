@@ -18,7 +18,7 @@ import (
 	"github.com/spf13/cobra"
 	yaml "gopkg.in/yaml.v2"
 
-	"github.com/exoscale/openapi-cli-generator/shorthand"
+	"github.com/motaword/openapi-cli-generator/shorthand"
 )
 
 //go:generate go-bindata ./templates/...

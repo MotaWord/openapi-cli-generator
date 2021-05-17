@@ -6,7 +6,7 @@ package apikey
 import (
 	"net/http"
 
-	"github.com/exoscale/openapi-cli-generator/cli"
+	"github.com/motaword/openapi-cli-generator/cli"
 	"github.com/rs/zerolog"
 )
 

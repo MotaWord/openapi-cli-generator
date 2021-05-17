@@ -3,7 +3,7 @@ package apikey
 import (
 	"fmt"
 
-	"github.com/exoscale/openapi-cli-generator/cli"
+	"github.com/motaword/openapi-cli-generator/cli"
 )
 
 func Example() {

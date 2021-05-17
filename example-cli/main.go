@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/exoscale/openapi-cli-generator/cli"
+	"github.com/motaword/openapi-cli-generator/cli"
 )
 
 //go:generate openapi-cli-generator generate openapi.yaml

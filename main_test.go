@@ -5,7 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	main "github.com/danielgtaylor/openapi-cli-generator"
+	main "github.com/motaword/openapi-cli-generator"
 	"io/ioutil"
 	"net/http"
 	"os"

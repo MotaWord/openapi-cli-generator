@@ -14,7 +14,7 @@ import (
 
 	"context"
 
-	"github.com/exoscale/openapi-cli-generator/cli"
+	"github.com/motaword/openapi-cli-generator/cli"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 	"github.com/spf13/viper"

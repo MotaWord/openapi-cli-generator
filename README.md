@@ -1,6 +1,6 @@
 # OpenAPI CLI Generator
 
-**Note: this project has been forked from https://github.com/danielgtaylor/openapi-cli-generator**
+**Note: this project has been forked from https://github.com/exoscale/openapi-cli-generator which is forked from https://github.com/danielgtaylor/openapi-cli-generator**
 
 ---
 
@@ -25,7 +25,7 @@ This project can be used to generate CLIs from OpenAPI 3 specs. The generated CL
 First, make sure you have Go installed. Then, you can grab this project:
 
 ```sh
-$ go get -u github.com/exoscale/openapi-cli-generator
+$ go get -u github.com/motaword/openapi-cli-generator
 ```
 
 Next, make your project directory and generate the commands file.

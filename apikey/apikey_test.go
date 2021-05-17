@@ -3,7 +3,7 @@ package apikey
 import (
 	"testing"
 
-	"github.com/exoscale/openapi-cli-generator/cli"
+	"github.com/motaword/openapi-cli-generator/cli"
 	"github.com/stretchr/testify/assert"
 )
 

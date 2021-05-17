@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/exoscale/openapi-cli-generator/cli"
+	"github.com/motaword/openapi-cli-generator/cli"
 	"github.com/rs/zerolog"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/clientcredentials"
