@@ -774,7 +774,7 @@ func main() {
 
 	generateCmd := &cobra.Command{
 		Use:   "generate <api-spec>",
-		Short: "Generate a `commands.go` file from an OpenAPI spec",
+		Short: "Generate a `commands.go` file from an OpenAPI spec. Modified by MotaWord.",
 		Args:  cobra.ExactArgs(1),
 		Run:   generate,
 	}
