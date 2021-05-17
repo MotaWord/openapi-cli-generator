@@ -152,10 +152,10 @@ func userHomeDir() string {
 }
 
 func initConfig(appName, envPrefix string) {
-	configDir := path.Join(userHomeDir(), "."+appName)
+	configDir := path.Join("."+appName)
 
 	// Load configuration from file(s) if provided.
-	viper.SetConfigName(appName)
+	viper.SetConfigName("config")
 	viper.AddConfigPath("/etc/" + appName + "/")
 	viper.AddConfigPath("$HOME/." + appName + "/")
 	viper.AddConfigPath(".")
@@ -175,7 +175,7 @@ func initConfig(appName, envPrefix string) {
 
 func initCache(appName string) {
 	Cache = viper.New()
-	Cache.SetConfigName(appName + "-cache")
+	Cache.SetConfigName("cache")
 	viper.AddConfigPath("/etc/" + appName + "/")
 	Cache.AddConfigPath("$HOME/." + appName + "/")
 	viper.AddConfigPath(".")
