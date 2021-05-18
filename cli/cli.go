@@ -99,6 +99,8 @@ func Init(config *Config) {
 
 				settings := viper.AllSettings()
 
+				settings["config-file-used"] = viper.ConfigFileUsed()
+
 				// Hide any secret values
 				for k := range settings {
 					if strings.Contains(k, "secret") || strings.Contains(k, "password") {
@@ -155,11 +157,21 @@ func initConfig(appName, envPrefix string) {
 	configDir := path.Join("."+appName)
 
 	// Load configuration from file(s) if provided.
-	viper.SetConfigName("config")
-	viper.AddConfigPath("/etc/" + appName + "/")
-	viper.AddConfigPath("$HOME/." + appName + "/")
+	// First, load {appName}.json from the working directory, /etc and $HOME directories.
+	viper.SetConfigName(appName)
 	viper.AddConfigPath(".")
+	viper.AddConfigPath("$HOME")
+	viper.AddConfigPath("/etc/")
 	viper.ReadInConfig()
+
+	if viper.ConfigFileUsed() == "" {
+		// Secondly load config.json from ".{appName}" directories in various places
+		viper.SetConfigName("config")
+		viper.AddConfigPath(configDir)
+		viper.AddConfigPath("$HOME/." + appName + "/")
+		viper.AddConfigPath("/etc/" + appName + "/")
+		viper.ReadInConfig()
+	}
 
 	// Load configuration from the environment if provided. Flags below get
 	// transformed automatically, e.g. `client-id` -> `PREFIX_CLIENT_ID`.
@@ -169,16 +181,17 @@ func initConfig(appName, envPrefix string) {
 
 	// Save a few things that will be useful elsewhere.
 	viper.Set("app-name", appName)
-	viper.Set("config-directory", configDir)
+	viper.Set("config-directory", filepath.Dir(viper.ConfigFileUsed()))
 	viper.SetDefault("server-index", 0)
 }
 
 func initCache(appName string) {
 	Cache = viper.New()
+	Cache.SetConfigType("json")
 	Cache.SetConfigName("cache")
-	viper.AddConfigPath("/etc/" + appName + "/")
+	Cache.AddConfigPath(viper.GetString("config-directory") + "/")
 	Cache.AddConfigPath("$HOME/." + appName + "/")
-	viper.AddConfigPath(".")
+	Cache.AddConfigPath("/etc/" + appName + "/")
 
 	// Write a blank cache if no file is already there. Later you can use
 	// cli.Cache.SaveConfig() to write new values.
