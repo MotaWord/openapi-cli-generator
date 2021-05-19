@@ -94,8 +94,14 @@ func Init(config *Config) {
 		Use:     filepath.Base(os.Args[0]),
 		Version: config.Version,
 		PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
-			if viper.GetBool("verbose") {
-				zerolog.SetGlobalLevel(zerolog.DebugLevel)
+			if viper.GetBool("verbose") || viper.GetBool("v") || viper.GetBool("vv") || viper.GetBool("vvv") {
+				if viper.GetBool("verbose") || viper.GetBool("vvv") {
+					zerolog.SetGlobalLevel(zerolog.DebugLevel)
+				} else if viper.GetBool("v") {
+					zerolog.SetGlobalLevel(zerolog.WarnLevel)
+				} else if viper.GetBool("vv") {
+					zerolog.SetGlobalLevel(zerolog.InfoLevel)
+				}
 
 				settings := viper.AllSettings()
 
@@ -135,7 +141,10 @@ func Init(config *Config) {
 		Run:   showHelpInput,
 	})
 
-	AddGlobalFlag("verbose", "", "Enable verbose log output", false)
+	AddGlobalFlag("verbose", "", "Enable DEBUG level verbose log output, same as --vvv flag", false)
+	AddGlobalFlag("v", "", "Enable WARN level verbose log output", false)
+	AddGlobalFlag("vv", "", "Enable INFO level verbose log output", false)
+	AddGlobalFlag("vvv", "", "Enable DEBUG level verbose log output", false)
 	AddGlobalFlag("output-format", "o", "Output format [json, yaml]", "json")
 	AddGlobalFlag("query", "q", "Filter / project results using JMESPath", "")
 	AddGlobalFlag("raw", "", "Output result as raw rather than pretty JSON", false)
